@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd   http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <context:component-scan
+            base-package="demo.spring.jpa.devel.web demo.spring.jpa.project.web demo.spring.jpa.feature.web"/>
+    <mvc:annotation-driven/>
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <!-- If we don't add this interceptor then persistence context will be Transaction scoped and
+             accessing lazily fetched fields after committing transaction will throw Exception unless they are accessed
+             within Transaction. This interceptor make the Persistence Context Request scoped. -->
+            <bean class="org.springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor">
+                <property name="entityManagerFactory" ref="entityManagerFactoryBean"/>
+            </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/form/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+</beans>

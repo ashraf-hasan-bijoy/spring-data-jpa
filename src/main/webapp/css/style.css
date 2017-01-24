@@ -1,0 +1,37 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+table.list th, table.list td {
+    border-bottom: 1px solid #ddd;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+div.buttons {
+    margin-top: 10px;
+    text-align: right
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+    font-size: 12px;
+}
